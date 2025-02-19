@@ -43,9 +43,12 @@ const AIAssistant = () => {
          try {
            setChatHistory((prev) => [...prev, userMessage]);
            setIsThinking(true);
-           const { data } = await axios.post("http://127.0.0.1:8000/chat", {
-             messages: [...chatHistory, userMessage],
-           });
+           const { data } = await axios.post(
+             "https://ai-english-learning.onrender.com/chat",
+             {
+               messages: [...chatHistory, userMessage],
+             }
+           );
 
            console.log(data);
 
