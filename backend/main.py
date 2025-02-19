@@ -3,7 +3,9 @@ from openai import OpenAI
 from pydantic import BaseModel
 from typing import List, Dict
 from fastapi.middleware.cors import CORSMiddleware
-import os
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -17,8 +19,8 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-# Set up OpenAI model (ensure OPENAI_API_KEY is set in your environment)
-os.environ["OPENAI_API_KEY"] = "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"
+# # Set up OpenAI model (ensure OPENAI_API_KEY is set in your environment)
+# OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
 llm = OpenAI()
 
 # Request model
@@ -47,7 +49,7 @@ async def chat(request: ChatRequest):
         messages = [SYSTEM_PROMPT] + request.messages
 
         print(messages)
-        
+
         # Call OpenAI API with the provided message history
         response = llm.chat.completions.create(
             model="gpt-4",
